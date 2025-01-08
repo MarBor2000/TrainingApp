@@ -6,13 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class UserPageController {
 
-    @GetMapping("/users")
+    @GetMapping("/usersView")
     public String usersPage() {
-        for(int i = 0; i < 10; i++){
-            System.out.println("XD");
-        }
-        return "users2";
-
-
+        return "user";
     }
 }
