@@ -109,5 +109,11 @@ public class UserService {
         return trainingPlans;
     }
 
+    public void deleteTrainingPlan(String userId, String planId) {
+        Document query = new Document("_id", new org.bson.types.ObjectId(userId));
+        Document update = new Document("$pull", new Document("trainingPlans", new Document("_id", new org.bson.types.ObjectId(planId))));
+        userCollection.updateOne(query, update);
+    }
+
 }
 

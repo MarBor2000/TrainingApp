@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
-@CrossOrigin(origins = "*")
+@RequestMapping("/api/users")
 public class UserController {
 
     private final UserService userService;
@@ -47,6 +46,11 @@ public class UserController {
     @GetMapping("/{userId}/plans")
     public List<TrainingPlan> getTrainingPlans(@PathVariable String userId) {
         return userService.getTrainingPlans(userId);
+    }
+
+    @DeleteMapping("/{userId}/plans/{planId}")
+    public void deleteTrainingPlan(@PathVariable String userId, @PathVariable String planId) {
+        userService.deleteTrainingPlan(userId, planId);
     }
 
 }

@@ -75,3 +75,33 @@ function displayTrainingPlans(plans) {
     });
 }
 
+async function loadTrainingPlans(userId) {
+    const response = await fetch(`/users/${userId}/plans`);
+    const plans = await response.json();
+
+    const plansList = document.getElementById("plans-list");
+    plansList.innerHTML = "";
+
+    plans.forEach(plan => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+            <span>${plan.goal} (${plan.daysPerWeek} days/week)</span>
+            <button onclick="deleteTrainingPlan('${userId}', '${plan._id}')">Delete</button>
+        `;
+        plansList.appendChild(li);
+    });
+}
+
+async function deleteTrainingPlan(userId, planId) {
+    const response = await fetch(`/users/${userId}/plans/${planId}`, {
+        method: "DELETE"
+    });
+
+    if (response.ok) {
+        alert("Training plan deleted successfully!");
+        loadTrainingPlans(userId);
+    } else {
+        alert("Failed to delete the training plan.");
+    }
+}
+
